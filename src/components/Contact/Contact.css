@@ -1,0 +1,150 @@
+
+.signup-container {
+    position: absolute;
+    /* This centers the form perfectly regardless of its size */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    background: var(--gunmetal);
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box; /* Prevents padding from breaking width */
+}
+
+.signup-form h2 {
+    margin-bottom: 8px;
+    color: var(--bright-snow);
+    font-family: "Montserrat", sans-serif;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--bright-snow);
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.9rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--iron-grey);
+    background: var(--carbon-black);
+    color: var(--bright-snow);
+    border-radius: 6px;
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box; 
+}
+
+.input-group input:focus {
+    border-color: var(--pale-slate-2);
+}
+
+.signup-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background-color: var(--iron-grey);
+    color: var(--bright-snow);
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.signup-btn:hover {
+    background-color: var(--pale-slate-2);
+    color: var(--carbon-black);
+}
+
+.signup-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: var(--pale-slate);
+    font-family: "Montserrat", sans-serif;
+    font-size: 0.9rem;
+}
+
+.signup-footer a {
+    color: var(--bright-snow);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- 2. Media Queries for All Devices --- */
+
+/* Tablets (Portrait) */
+@media (max-width: 1024px) {
+    .signup-container {
+        max-width: 380px;
+        top: 45%; /* Adjusted slightly for visual balance */
+    }
+}
+
+/* Small Tablets / Large Phones */
+@media (max-width: 768px) {
+    .signup-container {
+        padding: 30px;
+        width: 85%;
+        max-width: 350px;
+    }
+}
+
+/* Standard Mobile Devices */
+@media (max-width: 480px) {
+    .signup-container {
+        padding: 25px;
+        width: 90%;
+        top: 50%;
+    }
+
+    .signup-form h2 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+
+    .signup-btn {
+        font-size: 1rem;
+        padding: 14px;
+    }
+}
+
+/* Very Small Mobile / Foldables */
+@media (max-width: 320px) {
+    .signup-container {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .signup-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .signup-footer {
+        font-size: 0.8rem;
+    }
+}
+
+/* Landscape mode for phones (Short screens) */
+@media (max-height: 500px) {
+    .signup-container {
+        position: relative; /* Switch to relative so user can scroll down */
+        top: 20px;
+        left: 0;
+        transform: none;
+        margin: 20px auto;
+    }
+}
