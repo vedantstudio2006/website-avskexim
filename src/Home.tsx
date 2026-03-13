@@ -5,6 +5,7 @@ import { Ticker } from "./components/Home/Ticker";
 import { Feature } from "./components/Home/Feature";
 import { Statics } from "./components/Home/Statics";
 import { Trust } from "./components/Home/Trust";
+import { Social } from "./components/Home/Social";
 
 export const Home = () => {
   return (
@@ -14,6 +15,7 @@ export const Home = () => {
         <Feature/>
         <Statics/>
         <Trust/>
+        <Social/>
         <Footer/>
     </>
   )
