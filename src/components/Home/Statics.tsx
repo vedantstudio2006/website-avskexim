@@ -13,9 +13,9 @@ export const Statics = () => {
         <br />
         <ul>
           <AnimatedCounter target={99} label="Quality" />
-          <AnimatedCounter target={95} label="Delivered With Care" />
-          <AnimatedCounter target={100} label="Excellent Service" />
-          <AnimatedCounter target={98} label="Client Satisfaction" />
+          <AnimatedCounter target={99} label="Delivered With Care" />
+          <AnimatedCounter target={99} label="Excellent Service" />
+          <AnimatedCounter target={99} label="Client Satisfaction" />
         </ul>
       </div>
 
