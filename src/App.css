@@ -10,3 +10,26 @@ body{
     left: 0px;
     padding: 20px;
 }
+
+.cursor, .circle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  pointer-events: none; /* Crucial: stops the cursor elements from blocking hover events */
+  z-index: 9999;
+  transform: translate(-50%, -50%); /* Centers the cursor right on the mouse point */
+}
+
+.cursor {
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: 1px solid white;
+  transition: width 0.3s ease, height 0.3s ease; /* Smooth sizing when hovering */
+}
+
+.circle {
+  width: 24px;
+  height: 24px;
+}
