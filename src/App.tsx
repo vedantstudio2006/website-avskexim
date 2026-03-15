@@ -7,6 +7,7 @@ import { HSCode } from "./HSCode";
 import { Home } from "./Home";
 import { Contact } from "./components/Contact/Contact";
 import GoogleTranslate from "./components/Home/GoogleTranslate";
+import CustomCursor from "./components/Home/CursorTrail";
 
 function App() {
   useEffect(() => {
@@ -16,6 +17,7 @@ function App() {
     <>
     <div className="googleTranslate">
       <GoogleTranslate />
+      <CustomCursor/>
     </div>
       <Routes>
         <Route path="/" element={<Home />} />
