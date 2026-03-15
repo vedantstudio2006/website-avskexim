@@ -5,10 +5,10 @@ export const Social = () => {
     <>
         <div className="contact">
     <h1 className="contact-title">
-      <span>come </span>
-      <span>to </span>
-      <span>say </span>
-      <span>hello: </span>
+      <span className="contactName">come </span>
+      <span className="contactName">to </span>
+      <span className="contactName">say </span>
+      <span className="contactName">hello: </span>
     </h1>
     <ul className="liquid-ul">
       <li>

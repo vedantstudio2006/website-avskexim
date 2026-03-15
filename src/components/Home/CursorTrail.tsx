@@ -9,6 +9,7 @@ const HOVER_MAP: Record<string, number> = {
   '.number': 50,
   '.country-name': 40,
   '.hero-btn': 60,
+  '.contactName': 100,
   'P': 30 // optional: add if you want paragraphs to react too
 };
 
