@@ -1,119 +1,105 @@
 import React, { useEffect, useRef } from 'react';
-import './CustomCursor.css';
+import './Cursor.css';
 
-const CustomCursor: React.FC = () => {
-  // Refs to track coordinates without triggering re-renders
+const CIRCLE_COUNT = 20;
+
+// Define which selectors should trigger which sizes
+const HOVER_MAP: Record<string, number> = {
+  'H1': 100,
+  'H2': 100,
+  '.number': 50,
+  '.country-name': 40,
+  '.hero-btn': 60,
+  'P': 30 // optional: add if you want paragraphs to react too
+};
+
+const Cursor: React.FC = () => {
   const coords = useRef({ x: 0, y: 0 });
-  const cursorRef = useRef<HTMLDivElement | null>(null);
   const circlesRef = useRef<(HTMLDivElement | null)[]>([]);
-  const requestRef = useRef<number>(0);
-
-  // In TS, mutating DOM nodes with custom properties (circle.x = x) is an anti-pattern.
-  // We keep their positions in a separate array.
-  const numCircles = 20; // Adjust based on how many trailing circles you want
-  const circlesPositions = useRef<{ x: number; y: number }[]>(
-    Array.from({ length: numCircles }, () => ({ x: 0, y: 0 }))
-  );
+  const cursorRef = useRef<HTMLDivElement | null>(null);
+  const circleData = useRef(Array.from({ length: CIRCLE_COUNT }, () => ({ x: 0, y: 0 })));
 
   useEffect(() => {
-    // --- 1. Track Mouse Movement ---
     const handleMouseMove = (e: MouseEvent) => {
       coords.current.x = e.clientX;
       coords.current.y = e.clientY;
     };
-    window.addEventListener('mousemove', handleMouseMove);
 
-    // --- 2. Animation Loop ---
+    // AUTOMATIC HOVER DETECTION
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target || !cursorRef.current) return;
+
+      // Check for Tag Name (e.g., H1, H2) or Class
+      const matchedSelector = Object.keys(HOVER_MAP).find(selector => 
+        target.matches(selector)
+      );
+
+      if (matchedSelector) {
+        const size = HOVER_MAP[matchedSelector];
+        cursorRef.current.classList.add('active');
+        cursorRef.current.style.setProperty('--cursor-size', `${size}px`);
+      }
+    };
+
+    const handleMouseOut = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const matchedSelector = Object.keys(HOVER_MAP).find(selector => 
+        target.matches(selector)
+      );
+
+      if (matchedSelector && cursorRef.current) {
+        cursorRef.current.classList.remove('active');
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseover", handleMouseOver);
+    window.addEventListener("mouseout", handleMouseOut);
+
+    let animationFrameId: number;
     const animateCircles = () => {
       let x = coords.current.x;
       let y = coords.current.y;
 
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${x}px`;
-        cursorRef.current.style.top = `${y}px`;
-      }
-
       circlesRef.current.forEach((circle, index) => {
         if (!circle) return;
-
         circle.style.left = `${x - 12}px`;
         circle.style.top = `${y - 12}px`;
-        circle.style.scale = ((numCircles - index) / numCircles).toString();
+        circle.style.transform = `scale(${(CIRCLE_COUNT - index) / CIRCLE_COUNT})`;
 
-        circlesPositions.current[index].x = x;
-        circlesPositions.current[index].y = y;
+        const data = circleData.current[index];
+        data.x = x;
+        data.y = y;
 
-        const nextCircle = circlesPositions.current[index + 1] || circlesPositions.current[0];
-        x += (nextCircle.x - x) * 0.3;
-        y += (nextCircle.y - y) * 0.3;
+        const nextCircleData = circleData.current[index + 1] || circleData.current[0];
+        x += (nextCircleData.x - x) * 0.3;
+        y += (nextCircleData.y - y) * 0.3;
       });
-
-      requestRef.current = requestAnimationFrame(animateCircles);
-    };
-    requestRef.current = requestAnimationFrame(animateCircles);
-
-    // --- 3. Hover Logic ---
-    const cleanupFunctions: (() => void)[] = [];
-
-    const applyHoverEffect = (selector: string, width: number, height: number) => {
-      const elements = document.querySelectorAll(selector);
-      
-      elements.forEach((element) => {
-        const handleMouseEnter = () => {
-          if (cursorRef.current) {
-            cursorRef.current.classList.add('active');
-            cursorRef.current.style.width = `${width}px`;
-            cursorRef.current.style.height = `${height}px`;
-          }
-        };
-
-        const handleMouseLeave = () => {
-          if (cursorRef.current) {
-            cursorRef.current.classList.remove('active');
-            cursorRef.current.style.width = '';
-            cursorRef.current.style.height = '';
-          }
-        };
-
-        element.addEventListener('mouseenter', handleMouseEnter);
-        element.addEventListener('mouseleave', handleMouseLeave);
-
-        cleanupFunctions.push(() => {
-          element.removeEventListener('mouseenter', handleMouseEnter);
-          element.removeEventListener('mouseleave', handleMouseLeave);
-        });
-      });
+      animationFrameId = requestAnimationFrame(animateCircles);
     };
 
-    // Note: If these elements render conditionally or later in the React lifecycle, 
-    // querySelectorAll might miss them.
-    applyHoverEffect('h1', 100, 100);
-    applyHoverEffect('h2', 100, 100);
-    applyHoverEffect('.number', 50, 50);
-    applyHoverEffect('.country-name', 40, 40);
+    animateCircles();
 
-    // --- 4. Cleanup ---
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
-      cleanupFunctions.forEach((cleanup) => cleanup());
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      window.removeEventListener("mouseout", handleMouseOut);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <>
-      <div className="cursor" ref={cursorRef}></div>
-      {Array.from({ length: numCircles }).map((_, index) => (
+    <div className="cursor" ref={cursorRef}>
+      {Array.from({ length: CIRCLE_COUNT }).map((_, i) => (
         <div
-          key={index}
+          key={i}
           className="circle"
-          // Assign each rendered div to our ref array
-          ref={(el) => { circlesRef.current[index] = el; }}
-          style={{ backgroundColor: 'white' }}
-        ></div>
+          ref={(el) => { circlesRef.current[i] = el; }}
+        />
       ))}
-    </>
+    </div>
   );
 };
 
-export default CustomCursor;
+export default Cursor;
