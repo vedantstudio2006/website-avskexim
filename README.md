@@ -8,7 +8,7 @@
 [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-[View Live Demo](#) • [Report a Bug](#) • [Request Feature](#)
+[View Live Demo](https://avskexim.com/) • [Report a Bug](#) • [Request Feature](#)
 
 </div>
 
@@ -52,4 +52,4 @@ Ensure you have the following installed on your local machine:
 
 1. **Clone the repository**
    ```bash
-   git clone [https://github.com/your-username/your-exim-repo.git](https://github.com/your-username/your-exim-repo.git)
+   git clone [https://github.com/vedantstudio2006/website-avskexim]
