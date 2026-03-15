@@ -6,6 +6,7 @@ import "aos/dist/aos.css";
 import { HSCode } from "./HSCode";
 import { Home } from "./Home";
 import { Contact } from "./components/Contact/Contact";
+import GoogleTranslate from "./components/Home/GoogleTranslate";
 
 function App() {
   useEffect(() => {
@@ -13,6 +14,9 @@ function App() {
   }, []);
   return (
     <>
+    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+      <GoogleTranslate />
+    </div>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
