@@ -14,7 +14,7 @@ function App() {
   }, []);
   return (
     <>
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+    <div className="googleTranslate">
       <GoogleTranslate />
     </div>
       <Routes>
