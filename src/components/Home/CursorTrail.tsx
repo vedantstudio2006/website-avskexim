@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import './Cursor.css';
 
 const CIRCLE_COUNT = 20;
 
