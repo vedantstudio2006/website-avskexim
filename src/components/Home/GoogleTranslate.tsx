@@ -34,7 +34,7 @@ const GoogleTranslate: React.FC = () => {
         new window.google.translate.TranslateElement(
           { 
             pageLanguage: 'en', // Change this to your website's primary language
-            includedLanguages: 'en,es,hi,fr,de', // Optional: restrict to specific languages
+            includedLanguages: 'en,es,hi,fr,de,ar,zh,uk,tr,tl,ta,te,ru,pt', // Optional: restrict to specific languages
             layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE 
           },
           'google_translate_element' // The ID of the div where the widget will render
