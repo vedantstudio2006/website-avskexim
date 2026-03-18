@@ -9,6 +9,7 @@ import { Contact } from "./components/Contact/Contact";
 import GoogleTranslate from "./components/Home/GoogleTranslate";
 import Cursor from './components/Home/CursorTrail';
 
+
 function App() {
   useEffect(() => {
     AOS.init({});
@@ -28,7 +29,6 @@ function App() {
       <Routes>
         <Route path="/Contact" element={<Contact />} />
       </Routes>
-
     </>
   );
 }
