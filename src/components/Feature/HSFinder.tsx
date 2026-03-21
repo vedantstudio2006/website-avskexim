@@ -54,10 +54,12 @@ export const HSFinder = () => {
               <h3>HS Code</h3>
               <p>{result.hsCode}</p>
             </div>
+            <div className="line"></div>
             <div>
               <h3>Description</h3>
               <p>{result.description}</p>
             </div>
+            <div className="line"></div>
             <div>
               <h3>Availability</h3>
               <p>{result.availability}</p>
