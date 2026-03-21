@@ -49,22 +49,22 @@ export const HSFinder = () => {
         {typeof result === "string" ? (
           <p>{result}</p>
         ) : result ? (
-          <div className="result-inner">
+          <>
             <div>
               <h3>HS Code</h3>
-              <p>{result.hsCode}</p>
+              <span>{result.hsCode}</span>
             </div>
             <div className="line"></div>
             <div>
               <h3>Description</h3>
-              <p>{result.description}</p>
+              <span>{result.description}</span>
             </div>
             <div className="line"></div>
             <div>
               <h3>Availability</h3>
-              <p>{result.availability}</p>
+              <span>{result.availability}</span>
             </div>
-          </div>
+          </>
         ) : (
           <p>No Data found</p>
         )}
