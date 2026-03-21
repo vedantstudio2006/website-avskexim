@@ -51,21 +51,21 @@ export const HSFinder = () => {
         ) : result ? (
           <>
             <div>
-              <span>
+              <span className="inner-result">
                 <h3>HS Code: </h3>
                 {result.hsCode}
               </span>
             </div>
             <div className="line"></div>
             <div>
-              <span>
+              <span className="inner-result">
                 <h3>Description: </h3>
                 {result.description}
               </span>
             </div>
             <div className="line"></div>
             <div>
-              <span>
+              <span className="inner-result">
                 <h3>Availability: </h3>
                 {result.availability}
               </span>

@@ -58,6 +58,12 @@
     font-size: 20px;
 }
 
+.innner-result{
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
 .result ul {
     list-style: none;
     font-size: 18px;
