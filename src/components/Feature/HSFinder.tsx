@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../utils/HsCodeData";
 import { useHsCode } from "../utils/HsCodeData";
 
-
 export const HSFinder = () => {
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -41,16 +40,30 @@ export const HSFinder = () => {
         </div>
       </div>
 
-      <div className="result" id="resultContainer" style={{ display: result ? "block" : "none"}}>
+      <div
+        className="result"
+        id="resultContainer"
+        style={{ display: result ? "block" : "none" }}
+      >
         {error && <p style={{ color: "red" }}>{error}</p>}
         {typeof result === "string" ? (
           <p>{result}</p>
-        ): result ? (
-          <div>
-            <h3>Description</h3>
-            <p>{result.description}</p>
-          </div>
-        ): (
+        ) : result ? (
+          <>
+            <div>
+              <h3>HS Code</h3>
+              <p>{result.hsCode}</p>
+            </div>
+            <div>
+              <h3>Description</h3>
+              <p>{result.description}</p>
+            </div>
+            <div>
+              <h3>Availability</h3>
+              <p>{result.availability}</p>
+            </div>
+          </>
+        ) : (
           <p>No Data found</p>
         )}
       </div>
