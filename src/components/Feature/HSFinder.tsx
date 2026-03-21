@@ -51,18 +51,24 @@ export const HSFinder = () => {
         ) : result ? (
           <>
             <div>
-              <h3>HS Code: </h3>
-              <span>{result.hsCode}</span>
+              <span>
+                <h3>HS Code: </h3>
+                {result.hsCode}
+              </span>
             </div>
             <div className="line"></div>
             <div>
-              <h3>Description: </h3>
-              <span>{result.description}</span>
+              <span>
+                <h3>Description: </h3>
+                {result.description}
+              </span>
             </div>
             <div className="line"></div>
             <div>
-              <h3>Availability: </h3>
-              <span>{result.availability}</span>
+              <span>
+                <h3>Availability: </h3>
+                {result.availability}
+              </span>
             </div>
           </>
         ) : (
