@@ -60,8 +60,9 @@
 
 .inner-result{
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
     align-items: center;
+    text-align: center;
 }
 
 .line {
