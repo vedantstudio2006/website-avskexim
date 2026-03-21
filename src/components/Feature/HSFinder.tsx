@@ -45,7 +45,7 @@ export const HSFinder = () => {
         {error && <p style={{ color: "red" }}>{error}</p>}
         {result && 
         <div>
-          <h3>Description: </h3>{result}
+          <h3>Description: </h3>{result[3]}
           </div>}
       </div>
     </>
