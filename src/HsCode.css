@@ -69,6 +69,13 @@
     padding: 10px;
 }
 
+.line {
+    border: 1px solid var(--iron-grey);
+    max-width: 90%;
+    margin: 20px;
+    margin-left: 5%;
+}
+
 .info {
     display: flex;
     justify-content: space-evenly;

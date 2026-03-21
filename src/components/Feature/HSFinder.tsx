@@ -49,7 +49,7 @@ export const HSFinder = () => {
         {typeof result === "string" ? (
           <p>{result}</p>
         ) : result ? (
-          <>
+          <div className="result-inner">
             <div>
               <h3>HS Code</h3>
               <p>{result.hsCode}</p>
@@ -64,7 +64,7 @@ export const HSFinder = () => {
               <h3>Availability</h3>
               <p>{result.availability}</p>
             </div>
-          </>
+          </div>
         ) : (
           <p>No Data found</p>
         )}
