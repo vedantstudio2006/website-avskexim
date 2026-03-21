@@ -62,8 +62,10 @@
     display: flex;
     gap: 2rem;
     align-items: center;
-    text-align: center;
+    justify-content: center;
 }
+
+
 
 .line {
     border: 1px solid var(--iron-grey);
