@@ -8,7 +8,7 @@ export default function Map() {
     <>
       
       <div style={{ padding: "20px" }}>
-        <div style={{ marginTop: "10px;" }}>
+        <div style={{ marginTop: "10px" }}>
           <h1 className="map-title">Global Presence Map</h1>
         </div>
         <div className="line"></div>
