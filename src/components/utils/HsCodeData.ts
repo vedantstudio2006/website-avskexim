@@ -38,7 +38,7 @@ export function useHsCode() {
         setResult(`No data found for: ${searchQuery}`);
       } else {
         // Formatting the result to show both the Name, HS Code, and Description
-        setResult(`${data.productName} (HS: ${data.hsCode}) - ${data.description} ${data.availability}`);
+        setResult(`${data}`);
       }
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
