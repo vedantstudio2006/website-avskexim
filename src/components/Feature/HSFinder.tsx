@@ -43,10 +43,16 @@ export const HSFinder = () => {
 
       <div className="result" id="resultContainer" style={{ display: result ? "block" : "none"}}>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        {result && 
-        <div>
-          <h3>Description: </h3>{result[3]}
-          </div>}
+        {typeof result === "string" ? (
+          <p>{result}</p>
+        ): result ? (
+          <div>
+            <h3>Description</h3>
+            <p>{result.description}</p>
+          </div>
+        ): (
+          <p>No Data found</p>
+        )}
       </div>
     </>
   );

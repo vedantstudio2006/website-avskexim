@@ -11,7 +11,7 @@ export interface ProductResponse {
 }
 
 export function useHsCode() {
-  const [result, setResult] = useState<string | null>(null);
+  const [result, setResult] = useState<ProductResponse | null | string>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -38,7 +38,7 @@ export function useHsCode() {
         setResult(`No data found for: ${searchQuery}`);
       } else {
         // Formatting the result to show both the Name, HS Code, and Description
-        setResult(`${data}`);
+        setResult(data);
       }
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
