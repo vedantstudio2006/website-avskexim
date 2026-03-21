@@ -1,26 +1,20 @@
 import { useState } from "react";
-import { Client, Databases, Query, type Models } from "appwrite";
 
-// 1. Initialize Appwrite
-const client = new Client()
-  .setEndpoint("https://fra.cloud.appwrite.io/v1") 
-  .setProject("69b15d0e0016df9b8d3d");              
-
-const databases = new Databases(client);
-
-export interface HsCodeDocument extends Models.Document {
-  hscode: string;
-  description?: string;
+// Define the shape of the data coming from your Express backend
+export interface ProductResponse {
+  id: string;
+  productName: string;
+  hsCode: string;
+  description: string;
+  rate: string;
+  availability: string;
 }
 
-// 2. Create the Custom Hook
 export function useHsCode() {
-  // All the state lives here now, instead of the UI file
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // The main search function
   const searchHsCode = async (searchQuery: string) => {
     if (!searchQuery.trim()) return;
 
@@ -29,16 +23,22 @@ export function useHsCode() {
     setResult(null);
 
     try {
-      const response = await databases.listDocuments<HsCodeDocument>(
-        "69b15d2f002e28a585f8", 
-        "hs_code", 
-        [Query.equal("hscode", searchQuery)]
-      );
+      const API_URL = "https://website-avskexim-admin-backend.onrender.com"; 
 
-      if (response.documents.length === 0) {
-        setResult(`No data found for HS Code : ${searchQuery}`);
+      // Fetching from your GET route
+      const response = await fetch(`${API_URL}/api/products?name=${encodeURIComponent(searchQuery)}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: ProductResponse | null = await response.json();
+
+      if (!data) {
+        setResult(`No data found for: ${searchQuery}`);
       } else {
-        setResult(response.documents[0].description || "No description available");
+        // Formatting the result to show both the Name, HS Code, and Description
+        setResult(`${data.productName} (HS: ${data.hsCode}) - ${data.description} ${data.availability}`);
       }
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : String(err);
@@ -48,11 +48,5 @@ export function useHsCode() {
     }
   };
 
-  // Export the states and the function so the UI can use them
-  return {
-    result,
-    error,
-    isLoading,
-    searchHsCode
-  };
+  return { result, error, isLoading, searchHsCode };
 }
