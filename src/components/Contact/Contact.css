@@ -84,6 +84,13 @@
     font-weight: bold;
 }
 
+.particles-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
 /* --- 2. Media Queries for All Devices --- */
 
 /* Tablets (Portrait) */
