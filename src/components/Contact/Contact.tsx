@@ -1,11 +1,18 @@
 import "./Contact.css";
-import Particles from './Particles';
+import PixelBlast from './PixelBlast';
 
 import { useScrollToHash } from "../utils/NavigatePage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { registerUser } from "../utils/FormSubmit";
 
 export const Contact = () => {
+
+  useEffect(()=>{
+    document.body.classList.add('backgroundColor');
+    return ()=>{
+      document.body.classList.remove("backgroundColor");
+    };
+  },[]);
   useScrollToHash();
   // 1. Manage form inputs
   const [name, setName] = useState("");
@@ -54,19 +61,27 @@ export const Contact = () => {
 
   return (
     <>
-      <div style={{ width: "100%", height: "600px", position: "relative" }}>
-        <Particles
-          particleColors={["#ffffff"]}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.1}
-          particleBaseSize={100}
-          moveParticlesOnHover
-          alphaParticles={false}
-          disableRotation={false}
-          pixelRatio={1}
-        />
-      </div>
+      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+  <PixelBlast
+    variant="square"
+    pixelSize={4}
+    color="#B19EEF"
+    patternScale={2}
+    patternDensity={1}
+    pixelSizeJitter={0}
+    enableRipples
+    rippleSpeed={0.4}
+    rippleThickness={0.12}
+    rippleIntensityScale={1.5}
+    liquid={false}
+    liquidStrength={0.12}
+    liquidRadius={1.2}
+    liquidWobbleSpeed={5}
+    speed={0.5}
+    edgeFade={0.25}
+    transparent
+  />
+</div>
       <div id="form">
         <div className="signup-container">
           <form className="signup-form" onSubmit={handleSubmit}>
