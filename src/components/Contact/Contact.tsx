@@ -1,30 +1,28 @@
 import "./Contact.css";
-import PixelBlast from './PixelBlast';
-
+import PixelBlast from "./PixelBlast";
 import { useScrollToHash } from "../utils/NavigatePage";
 import { useEffect, useState } from "react";
-import { registerUser } from "../utils/FormSubmit";
 
 export const Contact = () => {
-
-  useEffect(()=>{
-    document.body.classList.add('backgroundColor');
-    return ()=>{
+  useEffect(() => {
+    document.body.classList.add("backgroundColor");
+    return () => {
       document.body.classList.remove("backgroundColor");
     };
-  },[]);
+  }, []);
   useScrollToHash();
-  // 1. Manage form inputs
+
+  // Manage form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  // 2. Manage UI states
+  // Manage UI states
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Reset previous messages and start loading
@@ -33,25 +31,39 @@ export const Contact = () => {
     setSuccessMessage(null);
 
     try {
-      // 3. Call the logic from your .ts file
-      await registerUser(name, email, phone);
+      // 1. Send data directly to your Express backend using fetch
+      const response = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, phone }),
+      });
 
-      // 4. Handle Success
+      // 2. Check if the server responded with an error (like a 500 status)
+      if (!response.ok) {
+        // Try to get the specific error message from the backend, or use a default one
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to submit to database");
+      }
+
+      // 3. Handle Success
       setSuccessMessage("Form submitted successfully!");
+
+      // Clear out the inputs
       setName("");
       setEmail("");
       setPhone("");
     } catch (err: unknown) {
-      // 5. Handle Errors
-      const appwriteError = err as { code?: number; message?: string };
+      // 4. Handle Errors securely
+      console.error("Submission error:", err);
 
-      if (appwriteError.code === 409) {
-        setError(
-          "This email or phone number already exists. Please try another one!",
-        );
+      // Check if the error is a standard Error object to safely read its message
+      if (err instanceof Error) {
+        setError(err.message);
       } else {
         setError(
-          `Failed to submit: ${appwriteError.message || "Unknown error"}`,
+          "Failed to submit. Please try again or check your connection.",
         );
       }
     } finally {
@@ -61,27 +73,27 @@ export const Contact = () => {
 
   return (
     <>
-      <div style={{ width: '100%', height: '600px', position: 'relative' }}>
-  <PixelBlast
-    variant="square"
-    pixelSize={4}
-    color="#B19EEF"
-    patternScale={2}
-    patternDensity={1}
-    pixelSizeJitter={0}
-    enableRipples
-    rippleSpeed={0.4}
-    rippleThickness={0.12}
-    rippleIntensityScale={1.5}
-    liquid={false}
-    liquidStrength={0.12}
-    liquidRadius={1.2}
-    liquidWobbleSpeed={5}
-    speed={0.5}
-    edgeFade={0.25}
-    transparent
-  />
-</div>
+      <div style={{ width: "100%", height: "600px", position: "relative" }}>
+        <PixelBlast
+          variant="square"
+          pixelSize={4}
+          color="#B19EEF"
+          patternScale={2}
+          patternDensity={1}
+          pixelSizeJitter={0}
+          enableRipples
+          rippleSpeed={0.4}
+          rippleThickness={0.12}
+          rippleIntensityScale={1.5}
+          liquid={false}
+          liquidStrength={0.12}
+          liquidRadius={1.2}
+          liquidWobbleSpeed={5}
+          speed={0.5}
+          edgeFade={0.25}
+          transparent
+        />
+      </div>
       <div id="form">
         <div className="signup-container">
           <form className="signup-form" onSubmit={handleSubmit}>
