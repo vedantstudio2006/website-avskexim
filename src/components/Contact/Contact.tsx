@@ -32,7 +32,7 @@ export const Contact = () => {
 
     try {
       // 1. Send data directly to your Express backend using fetch
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch("https://website-backend-zbl1.onrender.com/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
