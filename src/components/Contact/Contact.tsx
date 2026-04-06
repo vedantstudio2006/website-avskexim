@@ -134,7 +134,7 @@ export const Contact = () => {
                 onChange={(e) => setPhone(e.target.value)}
                 minLength={6}
               />
-              <small style={{ color: "gray", fontSize: "0.8em" }}>
+              <small style={{ color: "white", fontSize: "0.8em" }}>
                 (Enter Phone Number with Country Code.)
               </small>
             </div>
